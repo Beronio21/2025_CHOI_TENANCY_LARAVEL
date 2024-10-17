@@ -3,8 +3,10 @@
 # System Description:
 # Name of Student:
 Beronio, Philip Venje V.,
-                 Rebato, Ivan Ric F.,
-                 Sedo, Julian Blaze L.,
-                 Salinio Francis,
-                 Ebarle Rona
+Rebato, Ivan Ric F.,
+Sedo, Julian Blaze L.,
+Salinio Francis,
+Ebarle Rona
+          
+                
           
