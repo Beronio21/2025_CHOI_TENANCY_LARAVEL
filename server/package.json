@@ -4,7 +4,7 @@
   "description": "Overall Description of the Thesis Submission and Review System\r Product Perspective:\r This system is an independent application aimed at enhancing the manual thesis submission and review process at Bukidnon State University.",
   "main": "app.js",
   "scripts": {
-    "starDev": "node app"
+    "test": "node app"
   },
   "keywords": [],
   "author": "",
