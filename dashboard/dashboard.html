@@ -29,15 +29,15 @@
             <div class="cards">
                 <div class="card">
                     <h3>Thesis Progress Tracker</h3>
-                    <button>Explore</button>
+                    <button class="explore-btn">Explore</button>
                 </div>
                 <div class="card">
                     <h3>Revision History</h3>
-                    <button>Explore</button>
+                    <button class="explore-btn">Explore</button>
                 </div>
                 <div class="card">
                     <h3>Deadlines</h3>
-                    <button>Explore</button>
+                    <button class="explore-btn">Explore</button>
                 </div>
             </div>
 
@@ -82,61 +82,21 @@
                 <img src="../images/login1.png" alt="Admin Avatar">
                 <p>ADMIN</p>
                 <p>Philip Delacruz</p>
-                                <!-- Calendar input for birthday -->
-                                <input type="date" id="birthday" name="birthday" placeholder="Birthday" required>
-
             </div>
 
-            <!-- Calendar -->
-            <section class="calendar">
-                <div class="month">
-                    <ul>
-                        <li class="prev">&#10094;</li>
-                        <li class="next">&#10095;</li>
-                        <li>October<br><span style="font-size:18px">2024</span></li>
-                    </ul>
-                </div>
-                <ul class="weekdays">
-                    <li>Mo</li>
-                    <li>Tu</li>
-                    <li>We</li>
-                    <li>Th</li>
-                    <li>Fr</li>
-                    <li>Sa</li>
-                    <li>Su</li>
-                </ul>
-                <ul class="days">
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                    <li>7</li>
-                    <li>8</li>
-                    <li>9</li>
-                    <li><span class="active">10</span></li>
-                    <li>11</li>
-                    <li>12</li>
-                    <li>13</li>
-                    <li>14</li>
-                    <li>15</li>
-                    <li>16</li>
-                    <li>17</li>
-                    <li>18</li>
-                    <li>19</li>
-                    <li>20</li>
-                    <li>21</li>
-                    <li>22</li>
-                    <li>23</li>
-                    <li>24</li>
-                    <li>25</li>
-                    <li>26</li>
-                    <li>27</li>
-                    <li>28</li>
-                    <li>29</li>
-                    <li>30</li>
-                    <li>31</li>
+            <!-- Calendar Input -->
+            <section class="calendar-input">
+                <label for="birthday">Pick a Date:</label>
+                <input type="date" id="birthday" name="birthday">
+            </section>
+
+            <!-- Schedule / To-Do List -->
+            <section class="schedule">
+                <h3>To-Do List</h3>
+                <ul>
+                    <li><span>8:00 AM - 11:00 AM</span> Student Thesis Review</li>
+                    <li><span>1:00 PM - 3:00 PM</span> Thesis Update Discussion</li>
+                    <li><span>4:00 PM - 5:00 PM</span> Faculty Meeting</li>
                 </ul>
             </section>
         </div>
