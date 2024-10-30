@@ -1,73 +1,79 @@
 // server/routes/thesisRoutes.js
 const express = require('express');
 const router = express.Router();
-let thesissubmissiondb = require('../../db/thesissubmissiondb'); // Adjusted to go up a level
+const Thesis = require('../models/Thesis'); // Mongoose model
 
-
-// GET: Retrieve all thesis submissions or find by ID
-router.get('/', (req, res) => {
-    res.json(thesissubmissiondb);
+// GET: Retrieve all thesis submissions
+router.get('/', async (req, res) => {
+    try {
+        const theses = await Thesis.find();
+        res.json(theses);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
-router.get('/:id', (req, res) => {
-    const thesis = thesissubmissiondb.find(t => t.thesis_id == req.params.id);
-    if (thesis) {
+// GET: Retrieve a thesis submission by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const thesis = await Thesis.findOne({ thesis_id: req.params.id });
+        if (!thesis) return res.status(404).json({ message: "Thesis not found" });
         res.json(thesis);
-    } else {
-        res.status(404).send({ message: "Thesis not found" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 });
 
 // POST: Add a new thesis submission
-router.post('/', (req, res) => {
-    const newThesis = req.body;
-    if (!newThesis.thesis_id) {
-        return res.status(400).send({ message: "Thesis ID is required" });
+router.post('/', async (req, res) => {
+    const thesis = new Thesis(req.body);
+    try {
+        const newThesis = await thesis.save();
+        res.status(201).json(newThesis);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
-    
-    const existingThesis = thesissubmissiondb.find(t => t.thesis_id == newThesis.thesis_id);
-    if (existingThesis) {
-        return res.status(400).send({ message: "Thesis ID already exists" });
-    }
-    
-    thesissubmissiondb.push(newThesis);
-    res.status(201).json(newThesis);
 });
 
 // PUT: Replace thesis submission data
-router.put('/:id', (req, res) => {
-    const index = thesissubmissiondb.findIndex(t => t.thesis_id == req.params.id);
-    if (index === -1) {
-        return res.status(404).send({ message: "Thesis not found" });
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedThesis = await Thesis.findOneAndReplace(
+            { thesis_id: req.params.id },
+            req.body,
+            { new: true }
+        );
+        if (!updatedThesis) return res.status(404).json({ message: "Thesis not found" });
+        res.json(updatedThesis);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
-
-    // Replace the thesis data
-    thesissubmissiondb[index] = { ...req.body, thesis_id: req.params.id };
-    res.json(thesissubmissiondb[index]);
 });
 
 // PATCH: Update specific fields of thesis submission data
-router.patch('/:id', (req, res) => {
-    const thesis = thesissubmissiondb.find(t => t.thesis_id == req.params.id);
-    if (!thesis) {
-        return res.status(404).send({ message: "Thesis not found" });
+router.patch('/:id', async (req, res) => {
+    try {
+        const updatedThesis = await Thesis.findOneAndUpdate(
+            { thesis_id: req.params.id },
+            { $set: req.body },
+            { new: true }
+        );
+        if (!updatedThesis) return res.status(404).json({ message: "Thesis not found" });
+        res.json(updatedThesis);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
-
-    // Update fields provided in the request body
-    Object.assign(thesis, req.body);
-    res.json(thesis);
 });
 
 // DELETE: Remove a thesis submission
-router.delete('/:id', (req, res) => {
-    const index = thesissubmissiondb.findIndex(t => t.thesis_id == req.params.id);
-    if (index === -1) {
-        return res.status(404).send({ message: "Thesis not found" });
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletedThesis = await Thesis.findOneAndDelete({ thesis_id: req.params.id });
+        if (!deletedThesis) return res.status(404).json({ message: "Thesis not found" });
+        res.json(deletedThesis);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
-
-    // Remove the thesis from the array
-    const deletedThesis = thesissubmissiondb.splice(index, 1);
-    res.json(deletedThesis[0]);
 });
 
 module.exports = router;

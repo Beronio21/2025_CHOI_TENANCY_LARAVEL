@@ -1,50 +1,64 @@
+// server/routes/submissionHistoryRoutes.js
 const express = require('express');
 const router = express.Router();
-let submissionhistory = require('../../db/submissionhistorydb');
+const SubmissionHistory = require('../models/SubmissionHistory'); // Mongoose model
 
 // GET: Retrieve all submission history records or by student ID
-router.get('/', (req, res) => {
-    res.json(submissionhistory);
+router.get('/', async (req, res) => {
+    try {
+        const records = await SubmissionHistory.find();
+        res.json(records);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
-router.get('/:student_id', (req, res) => {
-    const studentHistory = submissionhistory.filter(s => s.student_id === req.params.student_id);
-    res.json(studentHistory);
+router.get('/:student_id', async (req, res) => {
+    try {
+        const studentHistory = await SubmissionHistory.find({ student_id: req.params.student_id });
+        res.json(studentHistory);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
 // POST: Add a new submission history record
-router.post('/', (req, res) => {
-    const newSubmission = req.body;
-    if (!newSubmission.submission_history_id || !newSubmission.student_id || !newSubmission.thesis_id) {
-        return res.status(400).send({ message: "Required fields are missing" });
-    }
+router.post('/', async (req, res) => {
+    const newSubmission = new SubmissionHistory(req.body);
 
-    submissionhistory.push(newSubmission);
-    res.status(201).json(newSubmission);
+    try {
+        const savedSubmission = await newSubmission.save();
+        res.status(201).json(savedSubmission);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 });
 
 // PATCH: Update submission status or feedback for a specific record
-router.patch('/:id', (req, res) => {
-    const submission = submissionhistory.find(s => s.submission_history_id == req.params.id);
-    if (!submission) {
-        return res.status(404).send({ message: "Submission history not found" });
-    }
+router.patch('/:id', async (req, res) => {
+    try {
+        const updatedSubmission = await SubmissionHistory.findOneAndUpdate(
+            { submission_history_id: req.params.id },
+            { $set: req.body },
+            { new: true }
+        );
 
-    if (req.body.submission_status) submission.submission_status = req.body.submission_status;
-    if (req.body.feedback) submission.feedback = req.body.feedback;
-    
-    res.json(submission);
+        if (!updatedSubmission) return res.status(404).json({ message: "Submission history not found" });
+        res.json(updatedSubmission);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
 // DELETE: Remove a submission history record by ID
-router.delete('/:id', (req, res) => {
-    const index = submissionhistory.findIndex(s => s.submission_history_id == req.params.id);
-    if (index === -1) {
-        return res.status(404).send({ message: "Submission history not found" });
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletedRecord = await SubmissionHistory.findOneAndDelete({ submission_history_id: req.params.id });
+        if (!deletedRecord) return res.status(404).json({ message: "Submission history not found" });
+        res.json(deletedRecord);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
-
-    const deletedRecord = submissionhistory.splice(index, 1);
-    res.json(deletedRecord[0]);
 });
 
 module.exports = router;

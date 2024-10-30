@@ -1,49 +1,63 @@
+// server/routes/messageRoutes.js
 const express = require('express');
 const router = express.Router();
-let messages = require('../../db/messagesdb');
+const Message = require('../models/Message'); // Mongoose model
 
 // GET: Retrieve all messages or by receiver ID
-router.get('/', (req, res) => {
-    res.json(messages);
+router.get('/', async (req, res) => {
+    try {
+        const messages = await Message.find();
+        res.json(messages);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
-router.get('/:receiver_id', (req, res) => {
-    const userMessages = messages.filter(m => m.receiver_id === req.params.receiver_id);
-    res.json(userMessages);
+router.get('/:receiver_id', async (req, res) => {
+    try {
+        const userMessages = await Message.find({ receiver_id: req.params.receiver_id });
+        res.json(userMessages);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
 // POST: Send a new message
-router.post('/', (req, res) => {
-    const newMessage = req.body;
-    if (!newMessage.message_id || !newMessage.sender_id || !newMessage.receiver_id || !newMessage.content) {
-        return res.status(400).send({ message: "Required fields are missing" });
-    }
+router.post('/', async (req, res) => {
+    const newMessage = new Message(req.body);
 
-    messages.push(newMessage);
-    res.status(201).json(newMessage);
+    try {
+        const savedMessage = await newMessage.save();
+        res.status(201).json(savedMessage);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 });
 
 // PATCH: Mark a message as read
-router.patch('/:id', (req, res) => {
-    const message = messages.find(m => m.message_id == req.params.id);
-    if (!message) {
-        return res.status(404).send({ message: "Message not found" });
+router.patch('/:id', async (req, res) => {
+    try {
+        const updatedMessage = await Message.findOneAndUpdate(
+            { message_id: req.params.id },
+            { is_read: true },
+            { new: true }
+        );
+        if (!updatedMessage) return res.status(404).json({ message: "Message not found" });
+        res.json(updatedMessage);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
-
-    // Update the `is_read` field
-    message.is_read = true;
-    res.json(message);
 });
 
 // DELETE: Remove a message by ID
-router.delete('/:id', (req, res) => {
-    const index = messages.findIndex(m => m.message_id == req.params.id);
-    if (index === -1) {
-        return res.status(404).send({ message: "Message not found" });
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletedMessage = await Message.findOneAndDelete({ message_id: req.params.id });
+        if (!deletedMessage) return res.status(404).json({ message: "Message not found" });
+        res.json(deletedMessage);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
-
-    const deletedMessage = messages.splice(index, 1);
-    res.json(deletedMessage[0]);
 });
 
 module.exports = router;
