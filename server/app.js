@@ -1,11 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+
+// Import route files
 const studentRoutes = require('./routes/studentRoutes');
 const thesisRoutes = require('./routes/thesisRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const submissionHistoryRoutes = require('./routes/submissionHistoryRoutes');
+const instructorRoutes = require('./routes/instructorRoutes');
 
 // Initialize the Express app
 const app = express();
@@ -15,15 +18,15 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected successfully'))
     .catch((err) => {
         console.error('MongoDB connection error:', err.message);
         process.exit(1); // Exit the app if the connection fails
     });
 
-
 // Routes
+app.use('/instructors', instructorRoutes);
 app.use('/students', studentRoutes);
 app.use('/theses', thesisRoutes);
 app.use('/notifications', notificationRoutes);
@@ -32,16 +35,16 @@ app.use('/submissionhistories', submissionHistoryRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
-  res.send('Welcome to the Online Thesis Submission and Review System API');
+    res.send('Welcome to the Online Thesis Submission and Review System API');
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
