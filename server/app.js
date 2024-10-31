@@ -9,6 +9,12 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const submissionHistoryRoutes = require('./routes/submissionHistoryRoutes');
 const instructorRoutes = require('./routes/instructorRoutes');
+// Admin
+const adminRoutes = require('./routes/adminRoutes');
+const userManagementRoutes = require('./routes/userManagementRoutes');
+const systemConfigRoutes = require('./routes/systemConfigRoutes');
+const adminNotificationRoutes = require('./routes/adminNotificationRoutes');
+const auditLogRoutes = require('./routes/auditLogRoutes');
 
 // Initialize the Express app
 const app = express();
@@ -25,13 +31,20 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
         process.exit(1); // Exit the app if the connection fails
     });
 
-// Routes
-app.use('/instructors', instructorRoutes);
-app.use('/students', studentRoutes);
-app.use('/theses', thesisRoutes);
-app.use('/notifications', notificationRoutes);
-app.use('/messages', messageRoutes);
-app.use('/submissionhistories', submissionHistoryRoutes);
+// Admin Routes
+app.use('/api/admins', adminRoutes);
+app.use('/api/user_management', userManagementRoutes);
+app.use('/api/system_configurations', systemConfigRoutes);
+app.use('/api/admin_notifications', adminNotificationRoutes);
+app.use('/api/audit_logs', auditLogRoutes);
+
+// Routes for other entities
+app.use('/api/instructors', instructorRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/theses', thesisRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/submissionhistories', submissionHistoryRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
