@@ -95,4 +95,29 @@ class TenantController extends Controller
         return redirect()->route('admin.tenants.index')
             ->with('success', 'Tenant deleted successfully.');
     }
+
+    public function register(Request $request, TenantManager $tenantManager)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'domain' => 'required|string|max:255|unique:tenants',
+            'database' => 'required|string|max:255|unique:tenants',
+            'status' => 'required|string|in:active,inactive',
+        ]);
+
+        try {
+            $tenant = Tenant::create([
+                'name' => $validated['name'],
+                'domain' => $validated['domain'],
+                'database' => $validated['database'],
+                'is_active' => $validated['status'] === 'active',
+            ]);
+
+            $tenantManager->createTenantDatabase($tenant);
+
+            return redirect('/')->with('success', 'Tenant registered successfully.');
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'Failed to register tenant.');
+        }
+    }
 }

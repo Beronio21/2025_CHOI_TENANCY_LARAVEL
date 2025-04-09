@@ -35,4 +35,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class);
 });
 
+Route::post('/tenant/register', [App\Http\Controllers\Admin\TenantController::class, 'register'])->name('tenant.register');
+
 require __DIR__.'/auth.php';

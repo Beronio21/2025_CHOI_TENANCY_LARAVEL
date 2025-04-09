@@ -77,8 +77,13 @@
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm font-medium text-gray-700">{{ Auth::user()->name }}</p>
-                                <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
+                                @if (Auth::check())
+                                    <p class="text-sm font-medium text-gray-700">{{ Auth::user()->name }}</p>
+                                    <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
+                                @else
+                                    <p class="text-sm font-medium text-gray-700">Guest</p>
+                                    <p class="text-xs text-gray-500">Not logged in</p>
+                                @endif
                             </div>
                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
