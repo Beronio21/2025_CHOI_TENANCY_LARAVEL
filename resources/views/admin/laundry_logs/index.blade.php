@@ -61,4 +61,58 @@
         </div>
     </div>
 </div>
+
+<style>
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollContainer = document.querySelector('.overflow-x-auto');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    scrollContainer.addEventListener('mousedown', (e) => {
+        isDown = true;
+        scrollContainer.classList.add('active');
+        startX = e.pageX - scrollContainer.offsetLeft;
+        scrollLeft = scrollContainer.scrollLeft;
+    });
+
+    scrollContainer.addEventListener('mouseleave', () => {
+        isDown = false;
+        scrollContainer.classList.remove('active');
+    });
+
+    scrollContainer.addEventListener('mouseup', () => {
+        isDown = false;
+        scrollContainer.classList.remove('active');
+    });
+
+    scrollContainer.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - scrollContainer.offsetLeft;
+        const walk = (x - startX) * 2; // The multiplier can be adjusted for speed
+        scrollContainer.scrollLeft = scrollLeft - walk;
+    });
+});
+</script>
 @endsection 

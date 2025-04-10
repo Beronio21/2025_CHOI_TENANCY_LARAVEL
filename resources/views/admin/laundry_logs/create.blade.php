@@ -28,7 +28,13 @@
                 </div>
                 <div>
                     <label for="items_washed" class="block text-sm font-medium text-gray-700">Items Washed</label>
-                    <input type="text" name="items_washed" id="items_washed" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <select name="items_washed" id="items_washed" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="Shirts">Shirts</option>
+                        <option value="Pants">Pants</option>
+                        <option value="Towels">Towels</option>
+                        <option value="Bedding">Bedding</option>
+                        <!-- Add more options as needed -->
+                    </select>
                 </div>
                 <div>
                     <label for="quantity_items" class="block text-sm font-medium text-gray-700">Quantity Items</label>
@@ -40,11 +46,21 @@
                 </div>
                 <div>
                     <label for="machine_used" class="block text-sm font-medium text-gray-700">Machine Used</label>
-                    <input type="text" name="machine_used" id="machine_used" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <select name="machine_used" id="machine_used" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="Washer 1">Washer 1</option>
+                        <option value="Washer 2">Washer 2</option>
+                        <option value="Dryer 1">Dryer 1</option>
+                        <!-- Add more options as needed -->
+                    </select>
                 </div>
                 <div>
                     <label for="detergent_used" class="block text-sm font-medium text-gray-700">Detergent Used</label>
-                    <input type="text" name="detergent_used" id="detergent_used" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <select name="detergent_used" id="detergent_used" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="Tide">Tide</option>
+                        <option value="Ariel">Ariel</option>
+                        <option value="Persil">Persil</option>
+                        <!-- Add more options as needed -->
+                    </select>
                 </div>
                 <div>
                     <label for="how_many_detergent_used" class="block text-sm font-medium text-gray-700">How Many Detergent Used</label>

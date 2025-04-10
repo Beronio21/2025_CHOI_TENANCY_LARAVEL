@@ -29,7 +29,13 @@
                 </div>
                 <div>
                     <label for="items_washed" class="block text-sm font-medium text-gray-700">Items Washed</label>
-                    <input type="text" name="items_washed" id="items_washed" value="{{ $laundryLog->items_washed }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <select name="items_washed" id="items_washed" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="Shirts" {{ $laundryLog->items_washed == 'Shirts' ? 'selected' : '' }}>Shirts</option>
+                        <option value="Pants" {{ $laundryLog->items_washed == 'Pants' ? 'selected' : '' }}>Pants</option>
+                        <option value="Towels" {{ $laundryLog->items_washed == 'Towels' ? 'selected' : '' }}>Towels</option>
+                        <option value="Bedding" {{ $laundryLog->items_washed == 'Bedding' ? 'selected' : '' }}>Bedding</option>
+                        <!-- Add more options as needed -->
+                    </select>
                 </div>
                 <div>
                     <label for="quantity_items" class="block text-sm font-medium text-gray-700">Quantity Items</label>
@@ -41,11 +47,21 @@
                 </div>
                 <div>
                     <label for="machine_used" class="block text-sm font-medium text-gray-700">Machine Used</label>
-                    <input type="text" name="machine_used" id="machine_used" value="{{ $laundryLog->machine_used }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <select name="machine_used" id="machine_used" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="Washer 1" {{ $laundryLog->machine_used == 'Washer 1' ? 'selected' : '' }}>Washer 1</option>
+                        <option value="Washer 2" {{ $laundryLog->machine_used == 'Washer 2' ? 'selected' : '' }}>Washer 2</option>
+                        <option value="Dryer 1" {{ $laundryLog->machine_used == 'Dryer 1' ? 'selected' : '' }}>Dryer 1</option>
+                        <!-- Add more options as needed -->
+                    </select>
                 </div>
                 <div>
                     <label for="detergent_used" class="block text-sm font-medium text-gray-700">Detergent Used</label>
-                    <input type="text" name="detergent_used" id="detergent_used" value="{{ $laundryLog->detergent_used }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <select name="detergent_used" id="detergent_used" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="Tide" {{ $laundryLog->detergent_used == 'Tide' ? 'selected' : '' }}>Tide</option>
+                        <option value="Ariel" {{ $laundryLog->detergent_used == 'Ariel' ? 'selected' : '' }}>Ariel</option>
+                        <option value="Persil" {{ $laundryLog->detergent_used == 'Persil' ? 'selected' : '' }}>Persil</option>
+                        <!-- Add more options as needed -->
+                    </select>
                 </div>
                 <div>
                     <label for="how_many_detergent_used" class="block text-sm font-medium text-gray-700">How Many Detergent Used</label>
