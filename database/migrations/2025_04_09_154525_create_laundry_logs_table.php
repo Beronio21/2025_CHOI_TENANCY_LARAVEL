@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('detergent_used');
             $table->integer('how_many_detergent_used');
             $table->string('drying_method');
-            $table->foreignId('tenant_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

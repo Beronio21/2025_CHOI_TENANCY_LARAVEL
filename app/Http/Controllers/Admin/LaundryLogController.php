@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LaundryLog;
-use Illuminate\Support\Facades\Log;
 
 class LaundryLogController extends Controller
 {
@@ -14,7 +13,6 @@ class LaundryLogController extends Controller
      */
     public function index()
     {
-        Log::info('LaundryLogController index method called');
         $laundryLogs = LaundryLog::all();
         return view('admin.laundry_logs.index', compact('laundryLogs'));
     }
