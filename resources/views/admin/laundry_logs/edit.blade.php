@@ -69,7 +69,11 @@
                 </div>
                 <div>
                     <label for="drying_method" class="block text-sm font-medium text-gray-700">Drying Method</label>
-                    <input type="text" name="drying_method" id="drying_method" value="{{ $laundryLog->drying_method }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <select name="drying_method" id="drying_method" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="Air Dry" {{ $laundryLog->drying_method == 'Air Dry' ? 'selected' : '' }}>Air Dry</option>
+                        <option value="Drying Machine" {{ $laundryLog->drying_method == 'Drying Machine' ? 'selected' : '' }}>Drying Machine</option>
+                        <!-- Add more options as needed -->
+                    </select>
                 </div>
             </div>
 

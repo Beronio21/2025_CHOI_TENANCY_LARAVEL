@@ -18,4 +18,9 @@ class LaundryLog extends Model
         'how_many_detergent_used',
         'drying_method',
     ];
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }
