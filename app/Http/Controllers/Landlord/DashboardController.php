@@ -17,7 +17,8 @@ class DashboardController extends Controller
         $workerCount = User::where('role', 'worker')->count();
         $clientCount = User::where('role', 'client')->count();
         $laundryCount = LaundryLog::count();
+        $totalEarnings = LaundryLog::sum('payment');
 
-        return view('landlord.dashboard', compact('workerCount', 'clientCount', 'laundryCount'));
+        return view('landlord.dashboard', compact('workerCount', 'clientCount', 'laundryCount', 'totalEarnings'));
     }
 } 

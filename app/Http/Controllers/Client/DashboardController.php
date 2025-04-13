@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
+use App\Models\LaundryLog;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -12,6 +14,10 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
-        return view('client.dashboard');
+        $clientId = Auth::id();
+        $laundryCount = LaundryLog::where('client_id', $clientId)->count();
+        $totalPayment = LaundryLog::where('client_id', $clientId)->sum('payment');
+
+        return view('client.dashboard', compact('laundryCount', 'totalPayment'));
     }
 } 

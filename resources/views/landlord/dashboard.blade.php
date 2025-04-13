@@ -25,6 +25,7 @@
                             <p>Workers: {{ $workerCount }}</p>
                             <p>Clients: {{ $clientCount }}</p>
                             <p>Laundry Logs: {{ $laundryCount }}</p>
+                            <p>Total Earnings: ${{ $totalEarnings }}</p>
                         </div>
                     </div>
                 </div>
