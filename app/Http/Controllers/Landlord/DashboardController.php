@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Landlord;
 
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
+use App\Models\User;
+use App\Models\LaundryLog;
 
 class DashboardController extends Controller
 {
@@ -12,6 +14,10 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
-        return view('landlord.dashboard');
+        $workerCount = User::where('role', 'worker')->count();
+        $clientCount = User::where('role', 'client')->count();
+        $laundryCount = LaundryLog::count();
+
+        return view('landlord.dashboard', compact('workerCount', 'clientCount', 'laundryCount'));
     }
 } 
