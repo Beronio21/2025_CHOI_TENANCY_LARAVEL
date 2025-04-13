@@ -17,7 +17,7 @@ class LandlordUserSeeder extends Seeder
         User::create([
             'name' => 'Landlord User',
             'email' => 'landlord@gmail.com',
-            'password' => Hash::make('admin1234'),
+            'password' => Hash::make('password'),
             'role' => 'landlord',
         ]);
     }

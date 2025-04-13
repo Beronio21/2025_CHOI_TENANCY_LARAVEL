@@ -17,7 +17,7 @@ class WorkerUserSeeder extends Seeder
         User::create([
             'name' => 'Worker User',
             'email' => 'worker@gmail.com',
-            'password' => Hash::make('admin1234'),
+            'password' => Hash::make('password'),
             'role' => 'worker',
         ]);
     }
