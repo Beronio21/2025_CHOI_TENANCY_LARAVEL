@@ -38,4 +38,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::post('/tenant/register', [App\Http\Controllers\Admin\TenantController::class, 'register'])->name('tenant.register');
 
+// Landlord routes
+Route::prefix('landlord')->name('landlord.')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\Landlord\DashboardController::class, 'index'])->name('dashboard');
+    // Add more landlord-specific routes here
+});
+
+// Worker routes
+Route::prefix('worker')->name('worker.')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\Worker\DashboardController::class, 'index'])->name('dashboard');
+    // Add more worker-specific routes here
+});
+
+// Client routes
+Route::prefix('client')->name('client.')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\Client\DashboardController::class, 'index'])->name('dashboard');
+    // Add more client-specific routes here
+});
+
 require __DIR__.'/auth.php';
