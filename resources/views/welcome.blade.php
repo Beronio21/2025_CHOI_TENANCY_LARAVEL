@@ -82,6 +82,10 @@
                             <input type="text" name="database" id="database" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black" required>
                         </div>
                         <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" name="email" id="email" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black" required>
+                        </div>
+                        <div class="mb-4">
                             <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                             <select name="status" id="status" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 <option value="inactive">Inactive</option>

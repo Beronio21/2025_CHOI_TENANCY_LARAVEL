@@ -49,6 +49,14 @@
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" name="email" id="email" value="{{ old('email', $tenant->email) }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('email') border-red-500 @enderror">
+                    @error('email')
+                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
             
             <div class="mt-6 flex items-center justify-end">

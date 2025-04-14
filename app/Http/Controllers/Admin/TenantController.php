@@ -35,6 +35,7 @@ class TenantController extends Controller
             'name' => 'required|string|max:255',
             'domain' => 'required|string|max:255|unique:tenants',
             'database' => 'required|string|max:255|unique:tenants',
+            'email' => 'required|string|email|max:255|unique:tenants',
         ]);
 
         $tenant = Tenant::create([
@@ -42,6 +43,7 @@ class TenantController extends Controller
             'domain' => $validated['domain'],
             'database' => $validated['database'],
             'is_active' => true,
+            'email' => $validated['email'],
         ]);
 
         $tenantManager->createTenantDatabase($tenant);
@@ -76,6 +78,7 @@ class TenantController extends Controller
             'domain' => 'required|string|max:255|unique:tenants,domain,' . $tenant->id,
             'database' => 'required|string|max:255|unique:tenants,database,' . $tenant->id,
             'is_active' => 'boolean',
+            'email' => 'required|string|email|max:255|unique:tenants,email,' . $tenant->id,
         ]);
 
         $tenant->update($validated);
@@ -103,6 +106,7 @@ class TenantController extends Controller
             'domain' => 'required|string|max:255|unique:tenants',
             'database' => 'required|string|max:255|unique:tenants',
             'status' => 'required|string|in:active,inactive',
+            'email' => 'required|string|email|max:255|unique:tenants',
         ]);
 
         try {
@@ -111,6 +115,7 @@ class TenantController extends Controller
                 'domain' => $validated['domain'],
                 'database' => $validated['database'],
                 'is_active' => $validated['status'] === 'active',
+                'email' => $validated['email'],
             ]);
 
             $tenantManager->createTenantDatabase($tenant);

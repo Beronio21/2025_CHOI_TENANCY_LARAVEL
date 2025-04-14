@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('domain')->unique();
             $table->string('database')->unique();
+            $table->string('email')->unique();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
