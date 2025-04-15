@@ -52,6 +52,7 @@ Route::prefix('landlord')->name('landlord.')->middleware('auth')->group(function
 // Worker routes
 Route::prefix('worker')->name('worker.')->middleware('auth')->group(function () {
     Route::get('/', [App\Http\Controllers\Worker\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/laundry', [App\Http\Controllers\Worker\DashboardController::class, 'store'])->name('laundry.store');
     // Add more worker-specific routes here
 });
 
