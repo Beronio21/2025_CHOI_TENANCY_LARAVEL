@@ -14,6 +14,8 @@
                 <li><a href="#" class="text-blue-500">Manage Workers</a></li>
                 <li><a href="#" class="text-blue-500">Manage Clients</a></li>
                 <li><a href="#" class="text-blue-500">Manage Laundry</a></li>
+                <li><a href="{{ route('landlord.laundry-records.index') }}" class="text-blue-500">Laundry Records</a></li>
+                <li><a href="{{ route('landlord.payment-records.index') }}" class="text-blue-500">Payment Records</a></li>
             </ul>
         </aside>
 
