@@ -34,6 +34,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('tenants', App\Http\Controllers\Admin\TenantController::class);
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class);
     Route::resource('laundry_logs', App\Http\Controllers\Admin\LaundryLogController::class);
+    Route::patch('/tenants/{tenant}/subscription', [App\Http\Controllers\Admin\TenantController::class, 'changeSubscriptionPlan'])->name('tenants.changeSubscriptionPlan');
 });
 
 Route::post('/tenant/register', [App\Http\Controllers\Admin\TenantController::class, 'register'])->name('tenant.register');

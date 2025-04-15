@@ -107,6 +107,7 @@ class TenantController extends Controller
             'database' => 'required|string|max:255|unique:tenants',
             'status' => 'required|string|in:active,inactive',
             'email' => 'required|string|email|max:255|unique:tenants',
+            'subscription_plan' => 'required|string|max:255',
         ]);
 
         try {
@@ -116,6 +117,7 @@ class TenantController extends Controller
                 'database' => $validated['database'],
                 'is_active' => $validated['status'] === 'active',
                 'email' => $validated['email'],
+                'subscription_plan' => $validated['subscription_plan'],
             ]);
 
             $tenantManager->createTenantDatabase($tenant);
@@ -124,5 +126,17 @@ class TenantController extends Controller
         } catch (\Exception $e) {
             return redirect('/')->with('error', 'Failed to register tenant.');
         }
+    }
+
+    public function changeSubscriptionPlan(Request $request, Tenant $tenant)
+    {
+        $validated = $request->validate([
+            'subscription_plan' => 'required|string|max:255',
+        ]);
+
+        $tenant->update(['subscription_plan' => $validated['subscription_plan']]);
+
+        return redirect()->route('admin.tenants.index')
+            ->with('success', 'Subscription plan updated successfully.');
     }
 }

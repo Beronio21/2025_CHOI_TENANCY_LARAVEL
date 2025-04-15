@@ -15,6 +15,7 @@ class Tenant extends Model
         'database',
         'is_active',
         'email',
+        'subscription_plan',
     ];
 
     protected $casts = [

@@ -57,6 +57,18 @@
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
+                
+                <div>
+                    <label for="subscription_plan" class="block text-sm font-medium text-gray-700">Subscription Plan</label>
+                    <select name="subscription_plan" id="subscription_plan" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('subscription_plan') border-red-500 @enderror">
+                        <option value="basic" {{ old('subscription_plan', $tenant->subscription_plan) == 'basic' ? 'selected' : '' }}>Basic Laundry Plan</option>
+                        <option value="premium" {{ old('subscription_plan', $tenant->subscription_plan) == 'premium' ? 'selected' : '' }}>Premium Laundry Plan</option>
+                        <option value="unlimited" {{ old('subscription_plan', $tenant->subscription_plan) == 'unlimited' ? 'selected' : '' }}>Unlimited Laundry Plan</option>
+                    </select>
+                    @error('subscription_plan')
+                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
             
             <div class="mt-6 flex items-center justify-end">

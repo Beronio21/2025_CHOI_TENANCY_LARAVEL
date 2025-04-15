@@ -91,6 +91,14 @@
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
+                        <div class="mb-4">
+                            <label for="subscription_plan" class="block text-sm font-medium text-gray-700">Subscription Plan</label>
+                            <select name="subscription_plan" id="subscription_plan" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black" required>
+                                <option value="basic">Basic Laundry Plan</option>
+                                <option value="premium">Premium Laundry Plan</option>
+                                <option value="unlimited">Unlimited Laundry Plan</option>
+                            </select>
+                        </div>
                         <div class="flex items-center justify-end">
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Register
