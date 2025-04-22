@@ -23,7 +23,7 @@
     </div>
     @endif
     
-    <div class="border-t border-gray-200">
+    <div class="border-t border-gray-200 overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -56,6 +56,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <a href="{{ route('admin.tenants.show', $tenant) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                         <a href="{{ route('admin.tenants.edit', $tenant) }}" class="text-yellow-600 hover:text-yellow-900 mr-3">Edit</a>
+                        <a href="{{ route('admin.tenants.resendPassword', $tenant->id) }}" class="text-blue-600 hover:text-blue-900 mr-3">Resend Password</a>
                         <form action="{{ route('admin.tenants.destroy', $tenant) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')

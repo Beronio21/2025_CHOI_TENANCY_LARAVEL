@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class);
     Route::resource('laundry_logs', App\Http\Controllers\Admin\LaundryLogController::class);
     Route::patch('/tenants/{tenant}/subscription', [App\Http\Controllers\Admin\TenantController::class, 'changeSubscriptionPlan'])->name('tenants.changeSubscriptionPlan');
+    Route::get('/tenants/{userId}/resend-password', [App\Http\Controllers\Admin\TenantController::class, 'resendPassword'])->name('tenants.resendPassword');
 });
 
 Route::post('/tenant/register', [App\Http\Controllers\Admin\TenantController::class, 'register'])->name('tenant.register');
@@ -59,6 +62,12 @@ Route::prefix('worker')->name('worker.')->middleware('auth')->group(function () 
 Route::prefix('client')->name('client.')->middleware('auth')->group(function () {
     Route::get('/', [App\Http\Controllers\Client\DashboardController::class, 'index'])->name('dashboard');
     // Add more client-specific routes here
+});
+
+Route::get('/test-email', function () {
+    Mail::to('test@example.com')->send(new TestMail());
+    
+    return 'Test email sent! Check your Mailtrap inbox.';
 });
 
 require __DIR__.'/auth.php';

@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use App\Services\TenantManager;
 use Illuminate\Http\Request;
+use App\Mail\ResendPasswordMail;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User; // Assuming you have a User model
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class TenantController extends Controller
 {
@@ -138,5 +143,41 @@ class TenantController extends Controller
 
         return redirect()->route('admin.tenants.index')
             ->with('success', 'Subscription plan updated successfully.');
+    }
+
+    public function resendPassword($userId)
+    {
+        $user = User::find($userId);
+
+        if ($user) {
+            Mail::to($user->email)->send(new ResendPasswordMail($user, $user->password));
+            return back()->with('success', 'Password reset email sent!');
+        }
+
+        return back()->with('error', 'User not found.');
+    }
+
+    public function activateTenant($tenantId)
+    {
+        $tenant = Tenant::find($tenantId);
+
+        if ($tenant && !$tenant->is_active) {
+            // Activate the tenant
+            $tenant->is_active = true;
+
+            // Generate a random password
+            $password = Str::random(8);
+            $tenant->password = Hash::make($password);
+
+            // Save the tenant
+            $tenant->save();
+
+            // Send the password email
+            Mail::to($tenant->email)->send(new ResendPasswordMail($tenant, $password));
+
+            return back()->with('success', 'Tenant activated and password sent!');
+        }
+
+        return back()->with('error', 'Tenant not found or already active.');
     }
 }
